@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace：名称空间，相当于java中的package,用于防止sql语句名称冲突（sql语句的隔离）  -->
+<mapper namespace="test">
+<!--mybatis针对每一种sql语句：新增/修改/删除/查询，
+	提供了对应的标签：insert/update/delete/select来放置 
+ -->
+
+	<!-- 根据用户Id查询用户，说明：
+		select标签：用于放置查询sql语句
+		id：唯一标识名称
+		parameterType：输入参数的类型
+		resultType：输出结果的类型（暂时注意：需要的是全限定名称）
+		#{id}：占位符，相当于jdbc中的？
+	 -->
+	<select id="queryUserById" parameterType="int" resultType="user" >
+		select * from `user` where id=#{id}
+	</select>
+	
+	
+	
+	<!-- 新增用户 ,说明：
+	 	insert：用于放置新增的sql语句
+	-->
+	<insert id="insertUser" parameterType="user"
+	useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into `user`(username,birthday,sex,address) 
+		values(#{username},#{birthday},#{sex},#{address})
+	</insert>
+
+</mapper>
